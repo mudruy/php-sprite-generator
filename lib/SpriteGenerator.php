@@ -16,25 +16,25 @@ class SpriteGenerator {
    * Path to image folder
    * @var string
    */
-  private $sourcePath = null;  
+  protected $sourcePath = null;  
   
   /**
    * Save generated files to
    * @var string
    */
-  private $savePath = null;    
+  protected $savePath = null;    
   
   /**
    *
    * @var resource an image resource identifier
    */
-  private $spriteImage = null;
+  protected $spriteImage = null;
   
   /**
    * CSS class prefix & sprite image name
    * @var string
    */
-  private $cssPrefix    = "mysprite";  
+  protected $cssPrefix    = "mysprite";  
   
   /**
    * CSS markup
@@ -47,43 +47,43 @@ class SpriteGenerator {
    * 
    * @var string
    */
-  private $cssFormat = "%s {background:url(%s) %dpx %dpx no-repeat;height:%dpx;width:%dpx}";
+  protected $cssFormat = "%s {background:url(%s) %dpx %dpx no-repeat;height:%dpx;width:%dpx}";
   
   /**
    * Set to true, to include images from subdirectories
    * @var boolean 
    */
-  private $scanSubDir = false;
+  protected $scanSubDir = false;
   
   /**
    * Enables the image filter
    * @var boolean 
    */
-  private $enableFilters = true;
+  protected $enableFilters = true;
   
   /**
    * List of images
    * @var array 
    */
-  private $spriteItems = array();
+  protected $spriteItems = array();
   
   /**
    * The max. sprite width
    * @var integer
    */
-  private $spriteMaxWidth = 500;
+  protected $spriteMaxWidth = 500;
   
   /**
    * The offset between images
    * @var integer
    */
-  private $spriteImageOffset = 2;  
+  protected $spriteImageOffset = 2;  
   
   /**
    * List of allowed file (image) types
    * @var array 
    */
-  private $allowedFileTypes = array('png','jpg', 'gif');  
+  protected $allowedFileTypes = array('png','jpg', 'gif');  
   
   /**
    * GD image filters
@@ -238,7 +238,7 @@ class SpriteGenerator {
    * Creates an empty png file
    * @return boolean
    */
-  private function prepareSpriteImage(){
+  protected function prepareSpriteImage(){
     $spriteSize = $this->calculateSpriteSize();
     
     $this->spriteImage = @imagecreatetruecolor($spriteSize['width'],$spriteSize['height']);
@@ -260,7 +260,7 @@ class SpriteGenerator {
    * adds the image to the sprite
    * @param array $itemProp
    */
-  private function addImageToSprite($itemProp){
+  protected function addImageToSprite($itemProp){
 
     switch($itemProp['type']){
       case 'PNG' : 
@@ -319,7 +319,7 @@ class SpriteGenerator {
    * @param string $folder
    * @return void
    */
-  private function findSpriteItmes($folder=false){
+  protected function findSpriteItmes($folder=false){
     foreach(scandir($folder) as $index => $item){
       if(!preg_match("/^\./", $item)){
         
@@ -338,7 +338,7 @@ class SpriteGenerator {
   /**
    * orders sprite items
    */
-  private function orderSpriteItems(){
+  protected function orderSpriteItems(){
     $newOrder = array();
     foreach($this->spriteItems as $cssName => $path){
       $newOrder[count(explode(".", trim($cssName,".")))][$cssName] = $path;
@@ -356,7 +356,7 @@ class SpriteGenerator {
   /**
    * calculates the image position
    */
-  private function prepareItemPositions(){
+  protected function prepareItemPositions(){
     
     $itemList     = array();
     $widthLeft    = $this->getSpriteMaxWidth();
